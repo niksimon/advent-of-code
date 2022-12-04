@@ -1,2 +1,2 @@
 # advent-of-code-2022
-Advent of Code 2022 Solutions
+My solutions for Advent of Code 2022
