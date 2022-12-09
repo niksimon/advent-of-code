@@ -31,12 +31,9 @@ for (let line of inputs) {
             let axis = Math.abs(delta.x) > Math.abs(delta.y) ? "x" : "y";
             let axis2 = axis === "x" ? "y" : "x";
             if(Math.abs(delta[axis]) > 1) {
+                rope[i][axis] += delta[axis] < 0 ? -1 : 1;
                 if(Math.abs(delta[axis2]) > 0) {
-                    rope[i][axis] += delta[axis] < 0 ? -1 : 1;
                     rope[i][axis2] += delta[axis2] < 0 ? -1 : 1;
-                }
-                else {
-                    rope[i][axis] += delta[axis] < 0 ? -1 : 1;
                 }
             }
         }
