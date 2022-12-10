@@ -3,15 +3,15 @@ const data = fs.readFileSync(`./input.txt`, "utf-8");
 
 let inputs = data.split("\r\n");
 
-let cycle = 1;
+let cycle = 0;
 let x = 1;
 let i = 0;
 let midOp = false;
 let row = "";
 
 while(i < inputs.length) {
-    let column = (cycle - 1) % 40;
-    row += [x - 1, x, x + 1].includes(column) ? '█' : ' ';
+    let column = cycle % 40;
+    row += (x - 1 <= column) && (column <= x + 1) ? '█' : ' ';
 
     if(column === 39) {
         console.log(row);
