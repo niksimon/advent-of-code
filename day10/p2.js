@@ -8,13 +8,14 @@ let cycle = 0, x = 1, row = "";
 for(const line of inputs) {
     const loops = line.startsWith("addx") ? 2 : 1;
 
-    for(let i = 0; i < loops; i++, cycle++) {
+    for(let i = 0; i < loops; i++) {
         const column = cycle % 40;
         row += x - 1 <= column && column <= x + 1 ? '█' : ' ';
         if(column === 39) {
             console.log(row);
             row = "";
         }
+        cycle++;
     }
 
     x += loops === 2 ? +line.split(" ")[1] : 0;
