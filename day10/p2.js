@@ -11,7 +11,7 @@ let row = "";
 
 while(i < inputs.length) {
     let column = cycle % 40;
-    row += (x - 1 <= column) && (column <= x + 1) ? '█' : ' ';
+    row += x - 1 <= column && column <= x + 1 ? '█' : ' ';
 
     if(column === 39) {
         console.log(row);
