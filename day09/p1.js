@@ -1,16 +1,16 @@
 const fs = require("fs");
 const data = fs.readFileSync(`./input.txt`, "utf-8");
 
-let inputs = data.split("\r\n");
+const inputs = data.split("\r\n");
 
 let visited = new Set();
 let head = { x: 0, y: 0 };
 let tail = { x: 0, y: 0 };
 
-for (let line of inputs) {
-    let [direction, steps] = line.split(" ");
+for (const line of inputs) {
+    const [direction, steps] = line.split(" ");
     for(let j = 0; j < steps; j++) {
-        let lastPos = {x: head.x, y: head.y};
+        const lastPos = {x: head.x, y: head.y};
         switch (direction) {
             case "R":
                 head.x++;

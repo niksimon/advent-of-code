@@ -1,7 +1,7 @@
 const fs = require('fs');
 const data = fs.readFileSync(`./input.txt`, 'utf-8');
 
-let inputs = data.split("\r\n");
+const inputs = data.split("\r\n");
 
 const trees = [];
 for(let i = 0; i < inputs.length; i++) {

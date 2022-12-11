@@ -1,15 +1,16 @@
 const fs = require('fs');
 const data = fs.readFileSync(`./input.txt`, 'utf-8');
 
-let a = data.split("\r\n");
-let b = [0];
-for(let i = 0, j = 0; i < a.length; i++) {
-    if(a[i] === "") {
-        j++;
-        b[j] = 0;
+const inputs = data.split("\r\n");
+
+let b = [0], j = 0;
+
+for(const line of inputs) {
+    if(line === "") {
+        b[++j] = 0;
         continue;
     }
-    b[j] += +a[i];
+    b[j] += +line;
 }
 
 b.sort((a,b) => b - a);

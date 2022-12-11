@@ -1,13 +1,11 @@
 const fs = require('fs');
 const data = fs.readFileSync(`./input.txt`, 'utf-8');
 
-let inputs = data.split("\r\n");
+const inputs = data.split("\r\n").map(e => e.split(" "));
 
 let score = 0;
 
-for(let i of inputs) {
-    let [opponent, player] = i.split(" ");
-
+for(const [opponent, player] of inputs) {
     score += player.charCodeAt() - 87;
 
     if(opponent.charCodeAt() === player.charCodeAt() - 23) {

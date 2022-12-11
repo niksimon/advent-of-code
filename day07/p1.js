@@ -1,7 +1,7 @@
 const fs = require('fs');
 const data = fs.readFileSync(`./input.txt`, 'utf-8');
 
-let inputs = data.split("\r\n");
+const inputs = data.split("\r\n");
 
 class Dir {
     content = [];
@@ -55,7 +55,7 @@ for(let i = 1; i < inputs.length; i++) {
 }
 
 let sum = 0;
-for(let d of dirs) {
+for(const d of dirs) {
     if(d.getSize() < 100000) {
         sum += d.getSize();
     }

@@ -1,7 +1,7 @@
 const fs = require('fs');
 const data = fs.readFileSync(`./input.txt`, 'utf-8');
 
-let inputs = data.split("\r\n");
+const inputs = data.split("\r\n");
 
 class Dir {
     content = [];
@@ -63,7 +63,7 @@ console.log(`Disk space needed for update: ${diskSpaceNeeded}`);
 
 dirs.sort((a, b) => a.getSize() - b.getSize());
 
-for(let d of dirs) {
+for(const d of dirs) {
     if(d.getSize() > diskSpaceNeeded) {
         console.log(`Deleting directory: ${d.name} - Size ${d.getSize()}`);
         break;
