@@ -8,13 +8,14 @@ function findShortestPath(startPos, grid) {
 
     while (queue.length > 0) {
         const currentPos = queue.shift();
-        const directions = ["North", "East", "South", "West"];
+        const directions = ["Up", "Down", "Left", "Right"];
 
-        for (const dir in directions) {
-            let newPos = exploreNeighbour(currentPos, directions[dir], grid);
+        for (const dir of directions) {
+            let newPos = exploreNeighbour(currentPos, dir, grid);
             if (newPos.status === "End") {
                 return newPos.path;
             } else if (newPos.status === "Valid") {
+                grid[newPos.top][newPos.left].visited = true;
                 queue.push(newPos);
             }
         }
@@ -31,26 +32,22 @@ function exploreNeighbour(currentPos, direction, grid) {
     let left = currentPos.left;
 
     switch (direction) {
-        case "North":
+        case "Up":
             top--;
             break;
-        case "East":
-            left++;
-            break;
-        case "South":
+        case "Down":
             top++;
             break;
-        case "West":
+        case "Left":
             left--;
+            break;
+        case "Right":
+            left++;
             break;
     }
 
     let newPos = new Position(top, left, newPath);
     newPos.setStatus(currentPos, newPos, grid);
-
-    if (newPos.status === "Valid") {
-        grid[newPos.top][newPos.left].visited = true;
-    }
 
     return newPos;
 }
@@ -72,11 +69,13 @@ class Position {
         ) {
             this.status = "Invalid";
         } else if (
-            grid[newPos.top][newPos.left].char === 97 && grid[currentPos.top][currentPos.left].char - grid[newPos.top][newPos.left].char === 1
+            grid[newPos.top][newPos.left].char === 97 &&
+            grid[currentPos.top][currentPos.left].char - grid[newPos.top][newPos.left].char === 1
         ) {
             this.status = "End";
         } else if (
-            grid[newPos.top][newPos.left].visited || grid[currentPos.top][currentPos.left].char > grid[newPos.top][newPos.left].char + 1
+            grid[newPos.top][newPos.left].visited ||
+            grid[currentPos.top][currentPos.left].char - grid[newPos.top][newPos.left].char > 1
         ) {
             this.status = "Blocked";
         } else {
@@ -94,22 +93,20 @@ class Node {
 
 let grid = [];
 
-//let startPoint = {};
-let endPoint = {};
+let startPos = {};
 
 for (let i = 0; i < inputs.length; i++) {
     grid[i] = [];
     for (let j = 0; j < inputs[i].length; j++) {
         let char = inputs[i][j];
         if (char === "S") {
-            startPoint = { top: i, left: j };
             char = "a";
         } else if (char === "E") {
-            endPoint = { top: i, left: j };
+            startPos = { top: i, left: j };
             char = "z";
         }
         grid[i][j] = new Node(char);
     }
 }
 
-console.log(findShortestPath(endPoint, grid).length);
+console.log(findShortestPath(startPos, grid).length);
