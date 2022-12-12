@@ -18,5 +18,7 @@ for(const line of inputs) {
         cycle++;
     }
 
-    x += loops === 2 ? +line.split(" ")[1] : 0;
+    if(loops === 2) {
+        x += +line.split(" ")[1];
+    }
 }
