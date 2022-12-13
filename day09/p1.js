@@ -9,7 +9,7 @@ let tail = { x: 0, y: 0 };
 
 for (const line of inputs) {
     const [direction, steps] = line.split(" ");
-    for(let j = 0; j < steps; j++) {
+    for(let i = 0; i < steps; i++) {
         const lastPos = {x: head.x, y: head.y};
         switch (direction) {
             case "R":

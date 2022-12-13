@@ -13,7 +13,7 @@ int main()
             max[++i] = 0;
         }
         else {
-            max[i] += atoi(line);
+            max[i] += strtol(line, NULL, 10);
         }
     }
 

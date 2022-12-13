@@ -13,7 +13,7 @@ int main()
             calories = 0;
         }
         else {
-            calories += atoi(line);
+            calories += strtol(line, NULL, 10);
         }
     }
 

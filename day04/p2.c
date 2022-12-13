@@ -15,7 +15,7 @@ int main()
         for(int i = 0, j = 0, elf = 0; i <= strlen(line); i++) {      
             if(line[i] == '-' || line[i] == ',' || line[i] == '\0') {
                 section[j] = '\0';
-                elves[elf++] = atoi(section);
+                elves[elf++] = strtol(section, NULL, 10);
                 j = 0;
             }
             else {

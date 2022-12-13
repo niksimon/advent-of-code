@@ -56,7 +56,7 @@ int main()
         char *lineSplit = strtok(line, " ");
         for(int i = 0, j = 0; lineSplit != NULL; i++) {
             if(i % 2) {
-                moves[j++] = atoi(lineSplit);
+                moves[j++] = strtol(lineSplit, NULL, 10);
             }
             lineSplit = strtok(NULL, " ");
         }
