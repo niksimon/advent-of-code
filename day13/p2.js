@@ -36,8 +36,7 @@ for(let i = 0; i < inputs.length; i++) {
         packets.push(eval(inputs[i]));
     }
 }
-packets.push([[2]]);
-packets.push([[6]]);
+packets.push([[2]], [[6]]);
 
 packets.sort((a, b) => compare(a, b));
 
