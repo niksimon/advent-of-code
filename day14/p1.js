@@ -51,14 +51,9 @@ for(const line of inputs) {
     for(let i = 0; i < path.length - 1; i++) {
         let [x1, y1] = path[i].split(",");
         let [x2, y2] = path[i + 1].split(",");
-        if(y1 !== y2) {
-            for(let j = Math.min(y1, y2); j <= Math.max(y1, y2); j++) {
-                cave.set(`${x1},${j}`, '#');
-            }
-        }
-        else {
-            for(let j = Math.min(x1, x2); j <= Math.max(x1, x2); j++) {
-                cave.set(`${j},${y1}`, '#');
+        for(let j = Math.min(y1, y2); j <= Math.max(y1, y2); j++) {
+            for(let k = Math.min(x1, x2); k <= Math.max(x1, x2); k++) {
+                cave.set(`${k},${j}`, '#');
             }
         }
         floor = Math.max(floor, Math.max(y1, y2));
