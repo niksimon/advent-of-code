@@ -8,7 +8,6 @@ function dropSand(cave) {
     let sand = {x: 500, y: 0};
     while(falling) {
         if(sand.y + 1 === floor) {
-            cave.set(`${sand.x},${sand.y}`, 'o');
             falling = false;
         }
         else {
@@ -25,12 +24,12 @@ function dropSand(cave) {
                     sand.x++;
                 }
                 else {
-                    cave.set(`${sand.x},${sand.y}`, 'o');
                     falling = false;
                 }
             }
         }
     }
+    cave.set(`${sand.x},${sand.y}`, 'o');
 }
 
 const cave = new Map();
