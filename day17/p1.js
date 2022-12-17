@@ -8,206 +8,67 @@ let top = 0;
 const tetris = new Set(["1,0", "2,0", "3,0", "4,0", "5,0", "6,0", "7,0"]);
 const leftWall = 0;
 const rightWall = 8;
-const startLeft = leftWall + 3;
-const types = ["-", "+", "L", "|", "."];
-let currentType = 0;
+const shapes = [
+    {points: [[0,0],[1,0],[2,0],[3,0]], left: [[0,0]], right: [[3,0]], down: [[0,0],[1,0],[2,0],[3,0]], width: 4, height: 1},
+    {points: [[0,1],[1,1],[2,1],[1,0],[1,2]], left: [[0,1],[1,0],[1,2]], right: [[1,0],[2,1],[1,2]], down: [[0,1],[1,0],[2,1]], width: 3, height: 3},
+    {points: [[0,0],[1,0],[2,0],[2,1],[2,2]], left: [[0,0],[2,1],[2,2]], right: [[2,0],[2,1],[2,2]], down: [[0,0],[1,0],[2,0]], width: 3, height: 3},
+    {points: [[0,0],[0,1],[0,2],[0,3]], left: [[0,0],[0,1],[0,2],[0,3]], right: [[0,0],[0,1],[0,2],[0,3]], down: [[0,0]], width: 1, height: 4},
+    {points: [[0,0],[0,1],[1,0],[1,1]], left: [[0,0],[0,1]], right: [[1,0],[1,1]], down: [[0,0],[1,0]], width: 2, height: 2},
+]
+let currentShape = 0;
 const moves = inputs[0];
 let currentMove = 0;
 
 while(rocks > 0) {
-    const startTop = top + 4;
+    const shape = shapes[currentShape % shapes.length];
+    const shapePos = [leftWall + 3, top + 4];
 
-    // ####
-    if(types[currentType % types.length] === "-") {
-        let shape = {x: startLeft, y: startTop, width: 4};
-        falling: while(true) {
-            // check right
-            if(moves[currentMove % moves.length] === '>'
-                && shape.x + shape.width < rightWall
-                && !tetris.has(`${shape.x + shape.width},${shape.y}`)) {
-                shape.x++;
-            }
-            // check left
-            else if(moves[currentMove % moves.length] === '<'
-                && shape.x - 1 > leftWall
-                && !tetris.has(`${shape.x - 1},${shape.y}`)){
-                shape.x--;
-            }
-            currentMove++;
-            // check below
-            for(let i = shape.x; i < shape.x + shape.width; i++) {
-                if(tetris.has(`${i},${shape.y - 1}`)) {
-                    break falling;
+    falling: while(true) {
+        // check right
+        if(moves[currentMove % moves.length] === '>' && shapePos[0] + shape.width < rightWall) {
+            let moveRight = true;
+            for(const point of shape.right) {
+                if(tetris.has(`${shapePos[0] + point[0] + 1},${shapePos[1] + point[1]}`)) {
+                    moveRight = false;
+                    break;
                 }
             }
-            shape.y--;
-        }
-        for(let i = shape.x; i < shape.x + shape.width; i++) {
-            tetris.add(`${i},${shape.y}`);
-        }
-        if(shape.y > top) {
-            top = shape.y;
-        }
-    }
-
-    //  #
-    // ###
-    //  #
-    else if(types[currentType % types.length] === "+") {
-        let shape = {x: startLeft, y: startTop, width: 3};
-        falling: while(true) {
-            // check right
-            if(moves[currentMove % moves.length] === '>'
-                && shape.x + shape.width < rightWall
-                && !tetris.has(`${shape.x + shape.width - 1},${shape.y + 2}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 1}`)
-                && !tetris.has(`${shape.x + shape.width - 1},${shape.y}`)){
-                shape.x++;
+            if(moveRight) {
+                shapePos[0]++;
             }
-            // check left
-            else if(moves[currentMove % moves.length] === '<'
-                && shape.x - 1 > leftWall
-                && !tetris.has(`${shape.x},${shape.y + 2}`)
-                && !tetris.has(`${shape.x - 1},${shape.y + 1}`)
-                && !tetris.has(`${shape.x},${shape.y}`)){
-                shape.x--;
-            }
-            currentMove++;
-            // check below
-            if(tetris.has(`${shape.x},${shape.y}`) ||
-                tetris.has(`${shape.x + 1},${shape.y - 1}`) ||
-                tetris.has(`${shape.x + 2},${shape.y}`)) {
-                break falling;
-            }
-            shape.y--;
         }
-        for(let i = shape.x; i < shape.x + shape.width; i++) {
-            tetris.add(`${i},${shape.y + 1}`);
-        }
-        tetris.add(`${shape.x + 1},${shape.y}`);
-        tetris.add(`${shape.x + 1},${shape.y + 2}`);
-        if(shape.y + 2 > top) {
-            top = shape.y + 2;
-        }
-    }
-
-    //   #
-    //   #
-    // ###
-    else if(types[currentType % types.length] === "L") {
-        let shape = {x: startLeft, y: startTop, width: 3};
-        falling: while(true) {
-            // check right
-            if(moves[currentMove % moves.length] === '>'
-                && shape.x + shape.width < rightWall
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 2}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 1}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y}`)){
-                shape.x++;
-            }
-            // check left
-            else if(moves[currentMove % moves.length] === '<'
-                && shape.x - 1 > leftWall
-                && !tetris.has(`${shape.x - 1},${shape.y}`)
-                && !tetris.has(`${shape.x},${shape.y + 1}`)
-                && !tetris.has(`${shape.x},${shape.y + 2}`)){
-                shape.x--;
-            }
-            currentMove++;
-            // check below
-            for(let i = shape.x; i < shape.x + shape.width; i++) {
-                if(tetris.has(`${i},${shape.y - 1}`)) {
-                    break falling;
+        // check left
+        else if(moves[currentMove % moves.length] === '<' && shapePos[0] - 1 > leftWall) {
+            let moveLeft = true;
+            for(const point of shape.left) {
+                if(tetris.has(`${shapePos[0] + point[0] - 1},${shapePos[1] + point[1]}`)) {
+                    moveLeft = false;
+                    break;
                 }
             }
-            shape.y--;
+            if(moveLeft) {
+                shapePos[0]--;
+            }
         }
-        for(let i = shape.x; i < shape.x + shape.width; i++) {
-            tetris.add(`${i},${shape.y}`);
-        }
-        tetris.add(`${shape.x + 2},${shape.y + 1}`);
-        tetris.add(`${shape.x + 2},${shape.y + 2}`);
-        if(shape.y + 2 > top) {
-            top = shape.y + 2;
-        }
-    }
+        currentMove++;
 
-    // #
-    // #
-    // #
-    // #
-    else if(types[currentType % types.length] === "|") {
-        let shape = {x: startLeft, y: startTop, width: 1};
-        falling: while(true) {
-            // check right
-            if(moves[currentMove % moves.length] === '>'
-                && shape.x + shape.width < rightWall
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 3}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 2}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 1}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y}`)) {
-                shape.x++;
-            }
-            // check left
-            else if(moves[currentMove % moves.length] === '<'
-                && shape.x - 1 > leftWall
-                && !tetris.has(`${shape.x - 1},${shape.y + 3}`)
-                && !tetris.has(`${shape.x - 1},${shape.y + 2}`)
-                && !tetris.has(`${shape.x - 1},${shape.y + 1}`)
-                && !tetris.has(`${shape.x - 1},${shape.y}`)){
-                shape.x--;
-            }
-            currentMove++;
-            // check below
-            if(tetris.has(`${shape.x},${shape.y - 1}`)) {
+        // check down
+        for(const point of shape.down) {
+            if(tetris.has(`${shapePos[0] + point[0]},${shapePos[1] + point[1] - 1}`)) {
                 break falling;
             }
-            shape.y--;
         }
-        for(let i = shape.y; i < shape.y + 4; i++) {
-            tetris.add(`${shape.x},${i}`);
-        }
-        if(shape.y + 3 > top) {
-            top = shape.y + 3;
-        }
+        shapePos[1]--;
     }
 
-    // ##
-    // ##
-    else if(types[currentType % types.length] === ".") {
-        let shape = {x: startLeft, y: startTop, width: 2};
-        falling: while(true) {
-            // check right
-            if(moves[currentMove % moves.length] === '>'
-                && shape.x + shape.width < rightWall
-                && !tetris.has(`${shape.x + shape.width},${shape.y}`)
-                && !tetris.has(`${shape.x + shape.width},${shape.y + 1}`)) {
-                shape.x++;
-            }
-            // check left
-            else if(moves[currentMove % moves.length] === '<'
-                && shape.x - 1 > leftWall
-                && !tetris.has(`${shape.x - 1},${shape.y}`)
-                && !tetris.has(`${shape.x - 1},${shape.y + 1}`)){
-                shape.x--;
-            }
-            currentMove++;
-            // check below
-            if(tetris.has(`${shape.x},${shape.y - 1}`) || tetris.has(`${shape.x + 1},${shape.y - 1}`)) {
-                break falling;
-            }
-            shape.y--;
-        }
-        for(let i = shape.x; i < shape.x + shape.width; i++) {
-            tetris.add(`${i},${shape.y}`);
-            tetris.add(`${i},${shape.y + 1}`);
-        }
-        if(shape.y + 1 > top) {
-            top = shape.y + 1;
-        }
+    for(const point of shape.points) {
+        tetris.add(`${shapePos[0] + point[0]},${shapePos[1] + point[1]}`);
+    }
+    if(shapePos[1] + shape.height - 1 > top) {
+        top = shapePos[1] + shape.height - 1;
     }
 
-    currentType++;
+    currentShape++;
     rocks--;
 }
 
