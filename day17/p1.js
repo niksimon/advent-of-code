@@ -25,31 +25,27 @@ while(rocks > 0) {
 
     falling: while(true) {
         // check right
+        let move = 0;
         if(moves[currentMove % moves.length] === '>' && shapePos[0] + shape.width < rightWall) {
-            let moveRight = true;
+            move = 1;
             for(const point of shape.right) {
                 if(tetris.has(`${shapePos[0] + point[0] + 1},${shapePos[1] + point[1]}`)) {
-                    moveRight = false;
+                    move = 0;
                     break;
                 }
-            }
-            if(moveRight) {
-                shapePos[0]++;
             }
         }
         // check left
         else if(moves[currentMove % moves.length] === '<' && shapePos[0] - 1 > leftWall) {
-            let moveLeft = true;
+            move = -1;
             for(const point of shape.left) {
                 if(tetris.has(`${shapePos[0] + point[0] - 1},${shapePos[1] + point[1]}`)) {
-                    moveLeft = false;
+                    move = 0;
                     break;
                 }
             }
-            if(moveLeft) {
-                shapePos[0]--;
-            }
         }
+        shapePos[0] += move;
         currentMove++;
 
         // check down
