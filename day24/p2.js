@@ -20,9 +20,7 @@ for(let i = 0; i < inputs.length; i++) {
 const startPos = {x: 1, y: 0};
 const endPos = {x: mapWidth - 2, y: mapHeight - 1};
 const [t1, t2, t3] = [findExit(startPos, endPos), findExit(endPos, startPos), findExit(startPos, endPos)];
-console.log(`1: ${t1}`);
-console.log(`2: ${t2}`);
-console.log(`3: ${t3}`);
+console.log(`1: ${t1}\n2: ${t2}\n3: ${t3}`);
 console.log(`Total: ${t1 + t2 + t3}`);
 
 function findExit(start, end) {
