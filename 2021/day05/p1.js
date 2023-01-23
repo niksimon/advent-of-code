@@ -11,12 +11,8 @@ for(const line of inputs) {
     }
 
     while(p1.x !== p2.x || p1.y !== p2.y) {
-        if(map.has(`${p1.x},${p1.y}`)) {
-            map.set(`${p1.x},${p1.y}`, map.get(`${p1.x},${p1.y}`) + 1);
-        }
-        else {
-            map.set(`${p1.x},${p1.y}`, 1);
-        }
+        const pos = `${p1.x},${p1.y}`;
+        map.set(pos, map.has(pos) ? map.get(pos) + 1 : 1);
 
         if(p1.x < p2.x) {
             p1.x++;
@@ -33,12 +29,8 @@ for(const line of inputs) {
         }
     }
 
-    if(map.has(`${p2.x},${p2.y}`)) {
-        map.set(`${p2.x},${p2.y}`, map.get(`${p2.x},${p2.y}`) + 1);
-    }
-    else {
-        map.set(`${p2.x},${p2.y}`, 1);
-    }
+    const pos = `${p2.x},${p2.y}`;
+    map.set(pos, map.has(pos) ? map.get(pos) + 1 : 1);
 }
 
 let dangerPoints = 0;
