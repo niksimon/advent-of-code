@@ -10,7 +10,7 @@ const fuel = new Array(max + 1).fill(0);
 for(let pos = min; pos <= max; pos++) {
     for(const crab of crabs) {
         const steps = Math.abs(crab - pos);
-        fuel[pos] += steps * (steps - 1) / 2 + steps;
+        fuel[pos] += steps * (steps + 1) / 2;
     }
 }
 
