@@ -37,7 +37,6 @@ while(stack.length > 0) {
                 if(smallVisited) {
                     continue;
                 }
-                // else set it to true
                 smallVisited = true;
             }
             visited.push(neighbour);
