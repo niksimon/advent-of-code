@@ -11,7 +11,7 @@ for(const line of inputs) {
 }
 
 let paths = 0;
-const stack = [{name: "start", path: ["start"], visited: ["start"], smallVisited: false}];
+const stack = [{name: "start", path: ["start"], smallVisited: false}];
 
 while(stack.length > 0) {
     const node = stack.pop();
@@ -29,23 +29,19 @@ while(stack.length > 0) {
             continue;
         }
 
-        const visited = node.visited.slice();
-
         if(neighbour === neighbour.toLowerCase()) {
-            if(visited.includes(neighbour)) {
+            if(node.path.includes(neighbour)) {
                 // if we already visited small cave
                 if(smallVisited) {
                     continue;
                 }
                 smallVisited = true;
             }
-            visited.push(neighbour);
         }
 
         const next = {
             name: neighbour,
             path: [...node.path, neighbour],
-            visited: visited,
             smallVisited: smallVisited
         };
 
