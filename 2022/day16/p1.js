@@ -16,7 +16,7 @@ for(const line of inputs) {
     if(line.indexOf("to valves") !== -1) {
         idx++;
     }
-    
+
     tunnels[valve] = line.substring(idx).split(", ");
 }
 
@@ -30,7 +30,8 @@ function maxFlow(currentValve, opened, time) {
     }
 
     const key = [currentValve, ...opened.sort(), time].join();
-    if(cache[key]) {
+    
+    if(cache[key] !== undefined) {
         return cache[key];
     }
 
