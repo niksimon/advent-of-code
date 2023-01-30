@@ -1,5 +1,6 @@
 const fs = require("fs");
 const data = fs.readFileSync(`./input.txt`, "utf-8");
+const { performance } = require('perf_hooks');
 
 const inputs = data.split("\r\n");
 
@@ -20,41 +21,29 @@ for(const line of inputs) {
     tunnels[valve] = line.substring(idx).split(", ");
 }
 
-// need 2 maps because with one we exceed maximum size
-const BigMap = {
-    cache: [new Map(), new Map()],
-    set(key, value) {
-        for(const c of this.cache) {
-            if(c.size < 16_777_216) {
-                c.set(key, value);
-                break;
-            }
-        }
-    },
-    has(key) {
-        return this.cache.some(c => c.has(key));
-    },
-    get(key) {
-        for(const c of this.cache) {
-            if(c.has(key)) {
-                return c.get(key);
-            }
-        }
-        return undefined;
-    }
-}
+// make Map for each valve
+const cache = {};
+Object.keys(valves).forEach(key => 
+    cache[key] = new Map()
+);
+
+const startTime = performance.now();
 
 console.log(maxFlow("AA", [], 26, 1));
+
+const endTime = performance.now();
+
+console.log(`Time: ${(endTime - startTime) / 1000} seconds`);
 
 function maxFlow(currentValve, opened, time, elephant) {
     if(time === 0) {
         return elephant === 0 ? 0 : maxFlow("AA", opened, 26, 0);
     }
 
-    const key = `${currentValve}${opened.sort()}${time}${elephant}`;
+    const key = `${opened.sort().join('')}${time}${elephant}`;
 
-    if(BigMap.has(key)) {
-        return BigMap.get(key);
+    if(cache[currentValve].has(key)) {
+        return cache[currentValve].get(key);
     }
 
     let max = 0;
@@ -69,7 +58,7 @@ function maxFlow(currentValve, opened, time, elephant) {
         max = Math.max(maxFlow(valve, opened, time - 1, elephant), max);
     }
 
-    BigMap.set(key, max);
+    cache[currentValve].set(key, max);
     
     return max;
 }
