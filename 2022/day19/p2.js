@@ -48,8 +48,9 @@ for (let i = 0; i < 3; i++) {
 
 console.log(result);
 
-function dfs(blueprint, robots, rocks, time) {
-    let max = rocks.geode + time * robots.geode;
+// they're minerals, not rocks!!!
+function dfs(blueprint, robots, minerals, time) {
+    let max = minerals.geode + time * robots.geode;
 
     if (time <= 1) {
         return max;
@@ -66,12 +67,12 @@ function dfs(blueprint, robots, rocks, time) {
         let timeToBuild = 0;
         
         for(let j = 0; j < 4; j++) {
-            const rock = Object.keys(rocks)[j];
+            const rock = Object.keys(minerals)[j];
             if(blueprint[robot][j] === 0) {
                 continue;
             }
             // skip time to when we have enough minerals to build the robot
-            timeToBuild = Math.max(timeToBuild, Math.ceil((blueprint[robot][j] - rocks[rock]) / robots[rock]));
+            timeToBuild = Math.max(timeToBuild, Math.ceil((blueprint[robot][j] - minerals[rock]) / robots[rock]));
         }
 
         timeToBuild++;
@@ -81,13 +82,13 @@ function dfs(blueprint, robots, rocks, time) {
         }
 
         const nextRobots = Object.assign({}, robots);
-        const nextRocks = Object.assign({}, rocks);
+        const nextRocks = Object.assign({}, minerals);
 
         // add new robot
         nextRobots[robot]++;
 
         for(let j = 0; j < 4; j++) {
-            const rock = Object.keys(rocks)[j];
+            const rock = Object.keys(minerals)[j];
             // increase the minerals made by the robot over time and decrease by the cost of making it
             nextRocks[rock] += robots[rock] * timeToBuild - blueprint[robot][j];
         }
