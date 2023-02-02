@@ -9,7 +9,7 @@ const players = [
 let dice = 1;
 let timesRolled = 0;
 
-game: while(players[0].score < 1000 && players[1].score < 1000) {
+game: while(true) {
     for(const player of players) {
         let moves = 3;
         let nextPos = 0;
