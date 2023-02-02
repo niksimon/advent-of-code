@@ -28,11 +28,11 @@ function game(players) {
 
     const wins = [0, 0];
     
-    for(let j = 1; j <= 3; j++) {
-        for(let k = 1; k <= 3; k++) {
-            for(let l = 1; l <= 3; l++) {
+    for(let i = 1; i <= 3; i++) {
+        for(let j = 1; j <= 3; j++) {
+            for(let k = 1; k <= 3; k++) {
                 const newPlayer = Object.assign({}, players[0]);
-                newPlayer.pos = (newPlayer.pos + (j + k + l) - 1) % 10 + 1;
+                newPlayer.pos = (newPlayer.pos + (i + j + k) - 1) % 10 + 1;
                 newPlayer.score = newPlayer.score + newPlayer.pos;
 
                 const nextWins = game([players[1], newPlayer]);
