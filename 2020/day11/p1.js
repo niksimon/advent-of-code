@@ -46,14 +46,14 @@ function round(map) {
             if(map[i][j] === 'L' && adjacentOccupiedCount === 0) {
                 newMap[i][j] = '#';
             }
-            else if(map[i][j] === '#' && adjacentOccupiedCount >= 4) {
-                newMap[i][j] = 'L';
+            else if(map[i][j] === '#') {
+                if(adjacentOccupiedCount >= 4) {
+                    newMap[i][j] = 'L';
+                }
+                // count total occupied
+                occupiedCount++; 
             }
-
-            // count total occupied
-            if(newMap[i][j] === '#') {
-                occupiedCount++;
-            }
+            
             // count changed seats from previous layout
             if(newMap[i][j] !== map[i][j]) {
                 differentSeatsCount++;
