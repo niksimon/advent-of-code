@@ -19,7 +19,8 @@ for(let i = 1; i < busIds.length; i++) {
     let found = false;
     lcm *= busIds[i - 1];
 
-    // find the sequence for busses 1 and 2 and their lcm, then for busses 1,2,3 and so on
+    // find the time when the sequence happens for busses 1 and 2, then for busses 1,2,3 and so on
+    // since all ids are prime, lcm is product of them
     // time is increased by lcm
     while(!found) {
         found = true;
