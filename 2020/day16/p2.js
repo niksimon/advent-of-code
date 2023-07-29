@@ -1,4 +1,3 @@
-const { error } = require('console');
 const fs = require('fs');
 const inputs = fs.readFileSync(`./input.txt`, 'utf-8').split("\r\n");
 
