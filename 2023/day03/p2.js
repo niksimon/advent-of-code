@@ -8,7 +8,6 @@ let sum = 0;
 
 // find all numbers
 const numbers = [];
-let id = 1;
 
 for(let i = 0; i < height; i++) {
     let num = '';
@@ -21,7 +20,7 @@ for(let i = 0; i < height; i++) {
             x.push(j);
         }
         if(num !== '' && (!Number.isInteger(+current) || j === width - 1)) {
-            numbers.push({id: id++, num: +num, y: i, x: x.slice()});
+            numbers.push({num: +num, y: i, x: x.slice()});
 
             num = '';
             x = [];
