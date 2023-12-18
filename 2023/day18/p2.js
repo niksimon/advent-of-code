@@ -1,19 +1,21 @@
 const fs = require('fs');
 const data = fs.readFileSync('./input.txt', 'utf-8').split('\r\n');
 
-const dirs = {R: [1, 0], L: [-1, 0], U: [0, -1], D: [0, 1]};
+const dirs = [[1, 0], [0, 1], [-1, 0], [0, -1]];
 let nextPos = {x: 0, y: 0};
 let prevPos = {x: 0, y: 0};
 let area = 0;
 let boundary = 0;
 
 for(const line of data) {
-    const [dir, steps, color] = line.split(' ');
+    const color = line.split(' ')[2].substring(2, line.split(' ')[2].length - 1);
+    const dir = dirs[color[color.length - 1]];
+    const steps = parseInt(color.substring(0, color.length - 1), 16);
 
     boundary += +steps;
 
-    nextPos.x += +steps * dirs[dir][0];
-    nextPos.y += +steps * dirs[dir][1];
+    nextPos.x += +steps * dir[0];
+    nextPos.y += +steps * dir[1];
     
     area += prevPos.x * nextPos.y - nextPos.x * prevPos.y;
 
