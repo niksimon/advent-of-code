@@ -7,7 +7,7 @@ const queue = [start];
 let longestPath = [];
 
 while(queue.length > 0) {
-    const pos = queue.pop();
+    const pos = queue.shift();
 
     if(pos.x === data[0].length - 2 && pos.y === data.length - 1) {
         if(longestPath.length < pos.path.length) {
