@@ -5,7 +5,7 @@ const width = data[0].length;
 const height = data.length;
 
 const antennasByFrequency = {};
-let antinodes = new Set();
+const antinodes = new Set();
 
 for(let i = 0; i < height; i++) {
     for(let j = 0; j < width; j++) {
@@ -17,8 +17,8 @@ for(let i = 0; i < height; i++) {
 }
 
 for(const freq in antennasByFrequency) {
-    antennas = antennasByFrequency[freq];
-    
+    const antennas = antennasByFrequency[freq];
+
     for(let i = 0; i < antennas.length; i++) {
         const mainAntenna = antennas[i];
 
