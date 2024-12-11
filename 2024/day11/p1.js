@@ -16,7 +16,8 @@ for(let i = 0; i < 25; i++) {
         stonesCount[key] = stones[key];
     }
     
-    const zeroStones = stones[0] ?? 0;
+    // Convert stone 0 to 1
+    stones[1] += stones[0];
     stones[0] = 0;
 
     for(const key of stonesKeys) {
@@ -36,9 +37,6 @@ for(let i = 0; i < 25; i++) {
             }
         }
     }
-
-    // Convert stone 0 to 1
-    stones[1] += zeroStones;
 }
 
 console.log(Object.values(stones).reduce((a, c) => a + c, 0));
