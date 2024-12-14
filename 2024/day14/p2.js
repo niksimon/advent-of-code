@@ -21,7 +21,7 @@ let seconds = 0;
 const dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 let treeSize = 0;
-const minTreeSize = 30; // Some random number I set, tree should have at least this much neighbouring robots
+const minTreeSize = Math.floor(robots.length / 10); // Let's say that tree count of robots should at least have 1/10 of total robots
 
 while(treeSize < minTreeSize) {
     seconds++;
