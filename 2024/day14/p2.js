@@ -21,7 +21,7 @@ let seconds = 0;
 const dirs = [[0, 1], [0, -1], [1, 0], [-1, 0]];
 
 let treeSize = 0;
-const minTreeSize = Math.floor(robots.length / 10); // Let's say that tree count of robots should at least have 1/10 of total robots
+const minTreeSize = Math.floor(robots.length / 10); // Let's say that tree count of robots should have at least 1/10 of total robots
 
 while(treeSize < minTreeSize) {
     seconds++;
@@ -40,6 +40,8 @@ while(treeSize < minTreeSize) {
 
     // Find every neighbouring robot for each robot
     for(const robot of robots) {
+        if(visited.has(`${robot.p[0]},${robot.p[1]}`)) continue;
+
         visited.add(`${robot.p[0]},${robot.p[1]}`);
         const queue = [{pos: [robot.p[0], robot.p[1]], countRobots: 1}];
 
