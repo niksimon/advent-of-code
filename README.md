@@ -1,5 +1,5 @@
 # <a href='https://adventofcode.com/'>Advent of Code</a>
-My (sloppy) solutions for Advent of Code
+My solutions for Advent of Code
 
 2024<br>
 2023<br>
